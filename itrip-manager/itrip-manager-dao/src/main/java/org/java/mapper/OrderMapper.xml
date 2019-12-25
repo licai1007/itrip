@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="org.java.pojo.Order" >
+    <id column="orderId" property="orderid" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="VARCHAR" />
+    <result column="paymentType" property="paymenttype" jdbcType="INTEGER" />
+    <result column="postFee" property="postfee" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="paymentTime" property="paymenttime" jdbcType="TIMESTAMP" />
+    <result column="consignTime" property="consigntime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="closeTime" property="closetime" jdbcType="TIMESTAMP" />
+    <result column="shippingName" property="shippingname" jdbcType="VARCHAR" />
+    <result column="shippingCode" property="shippingcode" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="buyerMessage" property="buyermessage" jdbcType="VARCHAR" />
+    <result column="buyerNick" property="buyernick" jdbcType="VARCHAR" />
+    <result column="buyerRate" property="buyerrate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      orderId, payment, paymentType, postFee, status, createTime, updateTime, paymentTime, 
+      consignTime, endTime, closeTime, shippingName, shippingCode, userId, buyerMessage, 
+      buyerNick, buyerRate
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.java.pojo.OrderCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tborder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    orderId,payment,paymentType,postFee,status,createTime,updateTime,paymentTime,consignTime,endTime,closeTime,shippingName,shippingCode,userId,buyerMessage,buyerNick,buyerRate
+    from tborder
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tborder
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.java.pojo.OrderCriteria" >
+    delete from tborder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.java.pojo.Order" >
+    insert into tborder (orderId, payment, paymentType, 
+      postFee, status, createTime, 
+      updateTime, paymentTime, consignTime, 
+      endTime, closeTime, shippingName, 
+      shippingCode, userId, buyerMessage, 
+      buyerNick, buyerRate)
+    values (#{orderid,jdbcType=VARCHAR}, #{payment,jdbcType=VARCHAR}, #{paymenttype,jdbcType=INTEGER}, 
+      #{postfee,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{paymenttime,jdbcType=TIMESTAMP}, #{consigntime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{closetime,jdbcType=TIMESTAMP}, #{shippingname,jdbcType=VARCHAR}, 
+      #{shippingcode,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, #{buyermessage,jdbcType=VARCHAR}, 
+      #{buyernick,jdbcType=VARCHAR}, #{buyerrate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.pojo.Order" >
+    insert into tborder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="paymenttype != null" >
+        paymentType,
+      </if>
+      <if test="postfee != null" >
+        postFee,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="paymenttime != null" >
+        paymentTime,
+      </if>
+      <if test="consigntime != null" >
+        consignTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="closetime != null" >
+        closeTime,
+      </if>
+      <if test="shippingname != null" >
+        shippingName,
+      </if>
+      <if test="shippingcode != null" >
+        shippingCode,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="buyermessage != null" >
+        buyerMessage,
+      </if>
+      <if test="buyernick != null" >
+        buyerNick,
+      </if>
+      <if test="buyerrate != null" >
+        buyerRate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="paymenttype != null" >
+        #{paymenttype,jdbcType=INTEGER},
+      </if>
+      <if test="postfee != null" >
+        #{postfee,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymenttime != null" >
+        #{paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consigntime != null" >
+        #{consigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingname != null" >
+        #{shippingname,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingcode != null" >
+        #{shippingcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="buyermessage != null" >
+        #{buyermessage,jdbcType=VARCHAR},
+      </if>
+      <if test="buyernick != null" >
+        #{buyernick,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerrate != null" >
+        #{buyerrate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.java.pojo.OrderCriteria" resultType="java.lang.Integer" >
+    select count(*) from tborder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tborder
+    <set >
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payment != null" >
+        payment = #{record.payment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymenttype != null" >
+        paymentType = #{record.paymenttype,jdbcType=INTEGER},
+      </if>
+      <if test="record.postfee != null" >
+        postFee = #{record.postfee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymenttime != null" >
+        paymentTime = #{record.paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.consigntime != null" >
+        consignTime = #{record.consigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closetime != null" >
+        closeTime = #{record.closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shippingname != null" >
+        shippingName = #{record.shippingname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingcode != null" >
+        shippingCode = #{record.shippingcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyermessage != null" >
+        buyerMessage = #{record.buyermessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyernick != null" >
+        buyerNick = #{record.buyernick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerrate != null" >
+        buyerRate = #{record.buyerrate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tborder
+    set orderId = #{record.orderid,jdbcType=VARCHAR},
+      payment = #{record.payment,jdbcType=VARCHAR},
+      paymentType = #{record.paymenttype,jdbcType=INTEGER},
+      postFee = #{record.postfee,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      paymentTime = #{record.paymenttime,jdbcType=TIMESTAMP},
+      consignTime = #{record.consigntime,jdbcType=TIMESTAMP},
+      endTime = #{record.endtime,jdbcType=TIMESTAMP},
+      closeTime = #{record.closetime,jdbcType=TIMESTAMP},
+      shippingName = #{record.shippingname,jdbcType=VARCHAR},
+      shippingCode = #{record.shippingcode,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=BIGINT},
+      buyerMessage = #{record.buyermessage,jdbcType=VARCHAR},
+      buyerNick = #{record.buyernick,jdbcType=VARCHAR},
+      buyerRate = #{record.buyerrate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.pojo.Order" >
+    update tborder
+    <set >
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="paymenttype != null" >
+        paymentType = #{paymenttype,jdbcType=INTEGER},
+      </if>
+      <if test="postfee != null" >
+        postFee = #{postfee,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymenttime != null" >
+        paymentTime = #{paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consigntime != null" >
+        consignTime = #{consigntime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closetime != null" >
+        closeTime = #{closetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingname != null" >
+        shippingName = #{shippingname,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingcode != null" >
+        shippingCode = #{shippingcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="buyermessage != null" >
+        buyerMessage = #{buyermessage,jdbcType=VARCHAR},
+      </if>
+      <if test="buyernick != null" >
+        buyerNick = #{buyernick,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerrate != null" >
+        buyerRate = #{buyerrate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.pojo.Order" >
+    update tborder
+    set payment = #{payment,jdbcType=VARCHAR},
+      paymentType = #{paymenttype,jdbcType=INTEGER},
+      postFee = #{postfee,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      paymentTime = #{paymenttime,jdbcType=TIMESTAMP},
+      consignTime = #{consigntime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      closeTime = #{closetime,jdbcType=TIMESTAMP},
+      shippingName = #{shippingname,jdbcType=VARCHAR},
+      shippingCode = #{shippingcode,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=BIGINT},
+      buyerMessage = #{buyermessage,jdbcType=VARCHAR},
+      buyerNick = #{buyernick,jdbcType=VARCHAR},
+      buyerRate = #{buyerrate,jdbcType=INTEGER}
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

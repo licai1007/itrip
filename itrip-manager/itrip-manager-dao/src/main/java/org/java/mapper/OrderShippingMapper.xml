@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.mapper.OrderShippingMapper" >
+  <resultMap id="BaseResultMap" type="org.java.pojo.OrderShipping" >
+    <id column="orderId" property="orderid" jdbcType="VARCHAR" />
+    <result column="receiverName" property="receivername" jdbcType="VARCHAR" />
+    <result column="receiverPhone" property="receiverphone" jdbcType="VARCHAR" />
+    <result column="receiverMobile" property="receivermobile" jdbcType="VARCHAR" />
+    <result column="receiverState" property="receiverstate" jdbcType="VARCHAR" />
+    <result column="receiverCity" property="receivercity" jdbcType="VARCHAR" />
+    <result column="receiverDistrict" property="receiverdistrict" jdbcType="VARCHAR" />
+    <result column="receiverAddress" property="receiveraddress" jdbcType="VARCHAR" />
+    <result column="receiverZip" property="receiverzip" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      orderId, receiverName, receiverPhone, receiverMobile, receiverState, receiverCity, 
+      receiverDistrict, receiverAddress, receiverZip, created, updated
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.java.pojo.OrderShippingCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbordershipping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    orderId,receiverName,receiverPhone,receiverMobile,receiverState,receiverCity,receiverDistrict,receiverAddress,receiverZip,created,updated
+    from tbordershipping
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbordershipping
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.java.pojo.OrderShippingCriteria" >
+    delete from tbordershipping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.java.pojo.OrderShipping" >
+    insert into tbordershipping (orderId, receiverName, receiverPhone, 
+      receiverMobile, receiverState, receiverCity, 
+      receiverDistrict, receiverAddress, receiverZip, 
+      created, updated)
+    values (#{orderid,jdbcType=VARCHAR}, #{receivername,jdbcType=VARCHAR}, #{receiverphone,jdbcType=VARCHAR}, 
+      #{receivermobile,jdbcType=VARCHAR}, #{receiverstate,jdbcType=VARCHAR}, #{receivercity,jdbcType=VARCHAR}, 
+      #{receiverdistrict,jdbcType=VARCHAR}, #{receiveraddress,jdbcType=VARCHAR}, #{receiverzip,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.pojo.OrderShipping" >
+    insert into tbordershipping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="receivername != null" >
+        receiverName,
+      </if>
+      <if test="receiverphone != null" >
+        receiverPhone,
+      </if>
+      <if test="receivermobile != null" >
+        receiverMobile,
+      </if>
+      <if test="receiverstate != null" >
+        receiverState,
+      </if>
+      <if test="receivercity != null" >
+        receiverCity,
+      </if>
+      <if test="receiverdistrict != null" >
+        receiverDistrict,
+      </if>
+      <if test="receiveraddress != null" >
+        receiverAddress,
+      </if>
+      <if test="receiverzip != null" >
+        receiverZip,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="receivername != null" >
+        #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverphone != null" >
+        #{receiverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivermobile != null" >
+        #{receivermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverstate != null" >
+        #{receiverstate,jdbcType=VARCHAR},
+      </if>
+      <if test="receivercity != null" >
+        #{receivercity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverdistrict != null" >
+        #{receiverdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraddress != null" >
+        #{receiveraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverzip != null" >
+        #{receiverzip,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.java.pojo.OrderShippingCriteria" resultType="java.lang.Integer" >
+    select count(*) from tbordershipping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbordershipping
+    <set >
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivername != null" >
+        receiverName = #{record.receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverphone != null" >
+        receiverPhone = #{record.receiverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivermobile != null" >
+        receiverMobile = #{record.receivermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverstate != null" >
+        receiverState = #{record.receiverstate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivercity != null" >
+        receiverCity = #{record.receivercity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverdistrict != null" >
+        receiverDistrict = #{record.receiverdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveraddress != null" >
+        receiverAddress = #{record.receiveraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverzip != null" >
+        receiverZip = #{record.receiverzip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbordershipping
+    set orderId = #{record.orderid,jdbcType=VARCHAR},
+      receiverName = #{record.receivername,jdbcType=VARCHAR},
+      receiverPhone = #{record.receiverphone,jdbcType=VARCHAR},
+      receiverMobile = #{record.receivermobile,jdbcType=VARCHAR},
+      receiverState = #{record.receiverstate,jdbcType=VARCHAR},
+      receiverCity = #{record.receivercity,jdbcType=VARCHAR},
+      receiverDistrict = #{record.receiverdistrict,jdbcType=VARCHAR},
+      receiverAddress = #{record.receiveraddress,jdbcType=VARCHAR},
+      receiverZip = #{record.receiverzip,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.pojo.OrderShipping" >
+    update tbordershipping
+    <set >
+      <if test="receivername != null" >
+        receiverName = #{receivername,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverphone != null" >
+        receiverPhone = #{receiverphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivermobile != null" >
+        receiverMobile = #{receivermobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverstate != null" >
+        receiverState = #{receiverstate,jdbcType=VARCHAR},
+      </if>
+      <if test="receivercity != null" >
+        receiverCity = #{receivercity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverdistrict != null" >
+        receiverDistrict = #{receiverdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveraddress != null" >
+        receiverAddress = #{receiveraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverzip != null" >
+        receiverZip = #{receiverzip,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.pojo.OrderShipping" >
+    update tbordershipping
+    set receiverName = #{receivername,jdbcType=VARCHAR},
+      receiverPhone = #{receiverphone,jdbcType=VARCHAR},
+      receiverMobile = #{receivermobile,jdbcType=VARCHAR},
+      receiverState = #{receiverstate,jdbcType=VARCHAR},
+      receiverCity = #{receivercity,jdbcType=VARCHAR},
+      receiverDistrict = #{receiverdistrict,jdbcType=VARCHAR},
+      receiverAddress = #{receiveraddress,jdbcType=VARCHAR},
+      receiverZip = #{receiverzip,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>
