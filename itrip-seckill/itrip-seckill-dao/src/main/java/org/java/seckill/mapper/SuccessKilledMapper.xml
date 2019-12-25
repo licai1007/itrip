@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.seckill.mapper.SuccessKilledMapper" >
+	<!-- 添加一行秒杀成功的记录(刚秒杀成功的商品默认是没有付款的) -->
+	<insert id="insertSuccessKilled" parameterType="org.java.seckill.pojo.SuccessKilled">
+		INSERT IGNORE INTO success_killed(`seckill_id`,`user_phone`,`state`) VALUES(#{seckillId},#{userPhone},0)
+	</insert>
+</mapper>

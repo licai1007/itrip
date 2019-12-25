@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.seckill.mapper.SeckillMapper" >
+	<sql id="selectSeckill">
+		SELECT 
+  			s.`seckill_id` seckillId,
+  			s.`name` name,
+  			s.`sell_point` sellPoint,
+  			s.`number` number,
+  			s.`old_pirce` oldPirce,
+  			s.`create_time` createTime,
+  			s.`new_price` newPrice,
+  			s.`barcode` barcode,
+  			s.`image` image,
+  			s.`cid` cid,
+  			s.`status` status,
+  			s.`start_time` startTime,
+  			s.`end_time` endTime
+		FROM
+  			seckill s 
+		WHERE s.status = 1
+	</sql>
+ 	<!-- 查询所有的秒杀商品 -->
+ 	<select id="getAllSeckill" resultType="org.java.seckill.pojo.Seckill">
+ 		<include refid="selectSeckill"/>
+ 	</select>
+ 	<select id="getById" parameterType="java.lang.Long" resultType="org.java.seckill.pojo.Seckill">
+ 		<include refid="selectSeckill"/> AND s.seckill_id=#{seckillId} for update
+ 	</select>
+ 	<!-- 减少库存 -->
+	<update id="reduceCount" parameterType="Map">
+		UPDATE 
+  			seckill
+		SET
+  			number = number - 1 
+		WHERE seckill_id = #{seckill_id} 
+  		AND start_time &lt; #{nowtime} 
+  		AND end_time > #{nowtime} 
+	</update>
+</mapper>
