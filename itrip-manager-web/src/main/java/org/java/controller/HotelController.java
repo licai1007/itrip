@@ -69,21 +69,4 @@ public class HotelController {
 		return hotelService.update(item);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
